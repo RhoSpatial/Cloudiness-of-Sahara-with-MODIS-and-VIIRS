@@ -8,7 +8,7 @@
 Imagery analytics where performed on Google Earth Engine(GEE) platform using java script.MODIS NDCI(normalized cloud index)= (sur_refl_b01 - sur_refl_b06)/(sur_refl_b01 + sur_refl_b06).
 Imagery processing: SDS cloud flag was used as a base for cloud mapping; LOW PASS processes NDCI greather than -0.14; MID PASS processes NDCI greather than 0; HIGH PASS processes red band surface reflectance greather than 0.6.
 ![Sahara_screenshotsGEE](https://github.com/RhoSpatial/Cloudiness-of-Sahara-with-MODIS-and-VIIRS/assets/111765142/3f663f55-6e9c-431a-ab44-6186f1465d53)
-*fast grafic presentation: screenshoots from GEE (~)center is at borders(Algeria,Mali,Niger); RGB(MODISTerra SR 10.jan.2015); WHITE = SDS cloud flag, BLUE = low_pass, YELLOW = mid_pass, RED = high_pass*
+*fast grafic presentation: screenshoots from GEE (~)center is at three borders(Algeria,Mali,Niger); RGB(MODISTerra SR 10.jan.2015); WHITE = SDS cloud flag, BLUE = low_pass, YELLOW = mid_pass, RED = high_pass*
 
 
 
