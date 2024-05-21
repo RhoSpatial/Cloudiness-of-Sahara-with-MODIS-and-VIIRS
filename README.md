@@ -17,7 +17,25 @@ Imagery processing: SDS cloud flag was used as a base for cloud mapping; LOW PAS
 
 ![Average cloudiness of weeks__march2000-march2023](https://github.com/RhoSpatial/Cloudiness-of-Sahara-with-MODIS-and-VIIRS/assets/111765142/53bb48ee-16e1-4998-a72a-ef9f549f226b)
 
-#### MODIS Terra maps: number of cloudy days in one year in each pixel (20 years averages 2000-2020)
+#### MODIS Terra maps:
+Number of cloudy days in one year in each pixel (20 years averages 2000-2020). This maps where exported from GEE and processed in SAGA-GIS; they don't exclude days with significant sensor 
+failer(like px_count in study area), therefore the true values [days/year] are slightly higher. This maps were made before the study area was drawn.
+
+![Sahara_red_high_pass](https://github.com/RhoSpatial/Cloudiness-of-Sahara-with-MODIS-and-VIIRS/assets/111765142/55510733-3b0d-41d7-888c-26abe4b94e42)
+
+![Sahara_mid_pass](https://github.com/RhoSpatial/Cloudiness-of-Sahara-with-MODIS-and-VIIRS/assets/111765142/ceaa9eac-4a7e-4d24-a396-d5823b8429d4)
+
+Averages on areas. Areas where obtained by reclasifiying, resempling and segmentation of SDS(Cloud flag) map.
+![Sahara_high_mid_area](https://github.com/RhoSpatial/Cloudiness-of-Sahara-with-MODIS-and-VIIRS/assets/111765142/b3887bcf-1c2f-4014-9d8e-259d314c652d)
+
+![Sahara_low_pass](https://github.com/RhoSpatial/Cloudiness-of-Sahara-with-MODIS-and-VIIRS/assets/111765142/b5e52e6a-9ebd-4675-acab-fba819ae810d)
+
+![Sahara_SDS_pass](https://github.com/RhoSpatial/Cloudiness-of-Sahara-with-MODIS-and-VIIRS/assets/111765142/e46d9751-e8c9-40c7-8c4a-b7957d5dd019)
+
+![Sahara_low_SDS_area](https://github.com/RhoSpatial/Cloudiness-of-Sahara-with-MODIS-and-VIIRS/assets/111765142/e81499cd-937f-4bb1-856d-dcbc3e07eab4)
+
+
+
 
 ![Sahara_DaysHighpass](https://github.com/RhoSpatial/Cloudiness-of-Sahara-with-MODIS-and-VIIRS/assets/111765142/a3f92e3a-f824-497b-85a0-16cbaf4bda6d)
 
