@@ -1,23 +1,18 @@
 # Cloudiness-of-Sahara-with-MODIS
 
-```
-
-MODIS/061/MOD09GA
-
-```
 ### Study area
 
 ![Stuady_are1](https://github.com/RhoSpatial/Cloudiness-of-Sahara-with-MODIS-and-VIIRS/assets/111765142/083c5186-a60a-4deb-b9fd-b9e28cefdeba)
 
 ### Clouds area retrieving method:
-Imagery analytics where performed on Google Earth Engine(GEE) platform using java script.MODIS NDCI(normalized cloud index)= (sur_refl_b01 - sur_refl_b06)/(sur_refl_b01 + sur_refl_b06).
-Imagery processing: SDS cloud flag was used as a base for cloud mapping; LOW PASS processes NDCI greather than -0.14; MID PASS processes NDCI greather than 0; HIGH PASS processes red band surface reflectance greather than 0.6.
+Imagery analytics where performed on Google Earth Engine(GEE) platform using java script. MODIS Surface Reflectance product: MOD09GA version 6.1; NDCI(normalized cloud index)= (sur_refl_b01 - sur_refl_b06)/(sur_refl_b01 + sur_refl_b06).
+Imagery processing: SDS(C flag)State_1km Bitmask QA; cloud state bit was used as a mask for cloud mapping;<br/> LOW PASS includes pixels with NDCI greather than -0.14<br/> MID PASS processes NDCI greather than 0<br/> HIGH PASS processes red band(b01) surface reflectance greather than 0.6.
 ![Sahara_screenshotsGEE](https://github.com/RhoSpatial/Cloudiness-of-Sahara-with-MODIS-and-VIIRS/assets/111765142/3f663f55-6e9c-431a-ab44-6186f1465d53)
-*fast grafic presentation: screenshoots from GEE (~)center is at three borders(Algeria,Mali,Niger); RGB(MODISTerra SR 10.jan.2015); WHITE = SDS cloud flag, BLUE = low_pass, YELLOW = mid_pass, RED = high_pass*
+<sub>*fast grafic presentation: screenshoots from GEE (~)center is at three borders(Algeria,Mali,Niger); RGB(MODISTerra SR 10.jan.2015);</sub><br/> WHITE = QA(SDS cloud flag)<br/> BLUE = low_pass,<br/> YELLOW = mid_pass, RED = high_pass*
 
- Used MODIS bands:
- 500m Surface Reflectance Band 1: (620-670 nm)
- 500m Surface Reflectance Band 6: (1628-1652 nm)
+ Used MODIS bands:<br/>
+ 500m Surface Reflectance Band 1: (620-670 nm)<br/>
+ 500m Surface Reflectance Band 6: (1628-1652 nm)<br/>
 1000m state_1km: Reflectance data state QA flags, SDS(Scientific Data Set), cloud state
 
 ### Results:
@@ -29,7 +24,7 @@ Imagery processing: SDS cloud flag was used as a base for cloud mapping; LOW PAS
 
 ### Java script
 
-```ruby
+```js
 var MODIS_SR_coll = ee.ImageCollection('MODIS/061/MOD09GA') //MODIS/061/MYD09GA
        .filterDate('2002-07-04', '2003-07-04')
        .select(['state_1km','sur_refl_b01','sur_refl_b06'])
@@ -82,8 +77,6 @@ return ee.Feature(null, {'rows1': row});
 }
 
 var MODIS_values = MODIS_SR_coll.map(Clouds_MOD09GA);
-//print('fColl',MODIS_values);
-//print('No. of days',MODIS_values.size());//toList(MODIS_values.size()));
 
 Export.table.toDrive({
   collection: MODIS_values,
@@ -93,24 +86,24 @@ Export.table.toDrive({
   selectors: ['rows1']
 });
 ```
-
+`px_count situacion`
 #### MODIS Terra maps:
 Number of cloudy days in one year in each pixel (20 years averages 2000-2020). This maps where exported from GEE and processed in SAGA-GIS; they don't exclude days with significant sensor 
-failure(like px_count in study area), therefore the true values [days/year] are slightly higher. This maps were made before the study area was drawn.
-High pass SDS_C_flag & red_band refl(gt 0.6)
+failure(like px_count in study area), therefore the true values [days/year] are slightly higher. This maps were made before the study area was drawn.<br/>
+High pass QA_Cloud_flag & red_band refl(gt 0.6)
 ![Sahara_red_high_pass](https://github.com/RhoSpatial/Cloudiness-of-Sahara-with-MODIS-and-VIIRS/assets/111765142/55510733-3b0d-41d7-888c-26abe4b94e42)
-
+MID pass QA_Cloud_flag & NDCI gt(0)
 ![Sahara_mid_pass](https://github.com/RhoSpatial/Cloudiness-of-Sahara-with-MODIS-and-VIIRS/assets/111765142/ceaa9eac-4a7e-4d24-a396-d5823b8429d4)
 
-Averages on areas. Areas where obtained by reclasifiying, resempling and segmentation of SDS(Cloud flag) map.
+Average number of days on areas HIGH pass | MID pass
 ![Sahara_high_mid_area](https://github.com/RhoSpatial/Cloudiness-of-Sahara-with-MODIS-and-VIIRS/assets/111765142/b3887bcf-1c2f-4014-9d8e-259d314c652d)
-
+LOW pass QA_Cloud_flag & NDCI gt(-0.14)
 ![Sahara_low_pass](https://github.com/RhoSpatial/Cloudiness-of-Sahara-with-MODIS-and-VIIRS/assets/111765142/b5e52e6a-9ebd-4675-acab-fba819ae810d)
-
+QA_Cloud_flag; state_1km Bitmask (bit 0 = 1)
 ![Sahara_SDS_pass](https://github.com/RhoSpatial/Cloudiness-of-Sahara-with-MODIS-and-VIIRS/assets/111765142/e46d9751-e8c9-40c7-8c4a-b7957d5dd019)
-
+Average number of days on areas LOW pass | pass
 ![Sahara_low_SDS_area](https://github.com/RhoSpatial/Cloudiness-of-Sahara-with-MODIS-and-VIIRS/assets/111765142/e81499cd-937f-4bb1-856d-dcbc3e07eab4)
-
+<sub>*Areas where obtained by reclasifiying, resempling and segmentation of map derivated from QA_SDS(Cloud flag) in SAGA-GIS.*</sub>
 
 #### Terra vs Agua
 ![Cloudiness by DOY  2002-23 average (N=7467; 97,35% of total) days MODIS_Aqua](https://github.com/RhoSpatial/Cloudiness-of-Sahara-with-MODIS-and-VIIRS/assets/111765142/e129d8a1-9ab8-4011-97c7-18b35e8e22a5)
