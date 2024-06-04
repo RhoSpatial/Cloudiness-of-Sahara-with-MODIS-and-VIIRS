@@ -1,5 +1,10 @@
 # Cloudiness-of-Sahara-with-MODIS
-
+´´´
+var MODIS_SR_coll = ee.ImageCollection('MODIS/061/MOD09GA') //MODIS/061/MYD09GA
+       .filterDate('2002-07-04', '2003-07-04')               //('2002-07-04', '2023-07-04')
+       .select(['state_1km','sur_refl_b01','sur_refl_b06'])
+       .map(function(i){return i.clip(Sahara_study)});
+´´´
 ### Study area
 
 ![Stuady_are1](https://github.com/RhoSpatial/Cloudiness-of-Sahara-with-MODIS-and-VIIRS/assets/111765142/083c5186-a60a-4deb-b9fd-b9e28cefdeba)
