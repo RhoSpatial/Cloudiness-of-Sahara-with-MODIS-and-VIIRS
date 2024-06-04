@@ -1,6 +1,6 @@
 # Cloudiness-of-Sahara-with-MODIS
 
-´´´java
+´´´
 
 var MODIS_SR_coll = ee.ImageCollection('MODIS/061/MOD09GA')
        
