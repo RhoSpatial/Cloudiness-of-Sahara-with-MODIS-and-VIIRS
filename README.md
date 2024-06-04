@@ -1,7 +1,6 @@
 # Cloudiness-of-Sahara-with-MODIS
 
-´´´
-MODIS/061/MOD09GA
+´´´MODIS/061/MOD09GA
 ´´´
 ### Study area
 
