@@ -1,6 +1,7 @@
 # Cloudiness-of-Sahara-with-MODIS
+
 ´´´
-var MODIS_SR_coll = ee.ImageCollection('MODIS/061/MOD09GA') MODIS/061/MYD09GA
+var MODIS_SR_coll = ee.ImageCollection('MODIS/061/MOD09GA')
        .filterDate('2002-07-04', '2003-07-04')
        .select(['state_1km','sur_refl_b01','sur_refl_b06'])
        .map(function(i){return i.clip(Sahara_study)});
