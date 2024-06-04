@@ -1,9 +1,7 @@
 # Cloudiness-of-Sahara-with-MODIS
 
 ´´´
-
 var MODIS_SR_coll = ee.ImageCollection('MODIS/061/MOD09GA')
-       
 ´´´
 ### Study area
 
