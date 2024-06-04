@@ -24,7 +24,7 @@ Imagery processing: SDS cloud flag was used as a base for cloud mapping; LOW PAS
 
 ### Java script
 
-´´´ruby
+´´´
 
 var MODIS_SR_coll = ee.ImageCollection('MODIS/061/MOD09GA') //MODIS/061/MYD09GA
        .filterDate('2002-07-04', '2003-07-04')
