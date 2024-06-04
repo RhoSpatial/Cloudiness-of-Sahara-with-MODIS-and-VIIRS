@@ -1,7 +1,6 @@
 # Cloudiness-of-Sahara-with-MODIS
 
-´´´MODIS/061/MOD09GA
-´´´
+´´´MODIS/061/MOD09GA´´´
 ### Study area
 
 ![Stuady_are1](https://github.com/RhoSpatial/Cloudiness-of-Sahara-with-MODIS-and-VIIRS/assets/111765142/083c5186-a60a-4deb-b9fd-b9e28cefdeba)
