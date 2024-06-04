@@ -25,7 +25,6 @@ Imagery processing: SDS cloud flag was used as a base for cloud mapping; LOW PAS
 ### Java script
 
 ´´´
-
 var MODIS_SR_coll = ee.ImageCollection('MODIS/061/MOD09GA') //MODIS/061/MYD09GA
        .filterDate('2002-07-04', '2003-07-04')
        .select(['state_1km','sur_refl_b01','sur_refl_b06'])
@@ -88,8 +87,8 @@ Export.table.toDrive({
   fileFormat: 'CSV',
   selectors: ['rows1']
 });
-
 ´´´
+
 #### MODIS Terra maps:
 Number of cloudy days in one year in each pixel (20 years averages 2000-2020). This maps where exported from GEE and processed in SAGA-GIS; they don't exclude days with significant sensor 
 failure(like px_count in study area), therefore the true values [days/year] are slightly higher. This maps were made before the study area was drawn.
