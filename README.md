@@ -6,14 +6,16 @@
 
 ### Clouds area retrieving method:
 Imagery analytics where performed on Google Earth Engine(GEE) platform using java script and MODIS Surface Reflectance product: MOD09GA version 6.1; NDCI(normalized cloud index)= (sur_refl_b01 - sur_refl_b06)/(sur_refl_b01 + sur_refl_b06).<br/>
-Imagery processing:<br/> SDS(C flag)State_1km Bitmask QA; cloud state bit was used as a mask for cloud mapping;<br/> LOW PASS includes pixels with NDCI greather than -0.14<br/> MID PASS processes NDCI greather than 0<br/> HIGH PASS processes red band(b01) surface reflectance greather than 0.6.
+Imagery processing:<br/> SDS(C_flag)State_1km Bitmask QA; cloud state bit was used as a mask for cloud mapping;<br/> LOW PASS includes pixels with NDCI greather than -0.14<br/> MID PASS processes NDCI greather than 0<br/> HIGH PASS processes red band(b01) surface reflectance greather than 0.6.
+
 ![Sahara_screenshotsGEE](https://github.com/RhoSpatial/Cloudiness-of-Sahara-with-MODIS-and-VIIRS/assets/111765142/3f663f55-6e9c-431a-ab44-6186f1465d53)
-<sub>*fast grafic presentation: screenshoots from GEE (~)center is at three borders(Algeria,Mali,Niger); RGB(MODISTerra SR 10.jan.2015);</sub><br/> 
+<sub>*fast grafic presentation: screenshoots from GEE (~)center is at three borders(Algeria,Mali,Niger); RGB(MODISTerra SR 10.jan.2015);</sub><br/>
+
 WHITE = QA(SDS cloud flag)<br/> BLUE = low_pass<br/> YELLOW = mid_pass<br/> RED = high_pass*
 
  <sub>Used MODIS bands:<br/>
- 500m Surface Reflectance Band 1: (620-670 nm)<br/>
- 500m Surface Reflectance Band 6: (1628-1652 nm)<br/>
+ 500m Surface Reflectance Band 1: (620-670 nm); red<br/>
+ 500m Surface Reflectance Band 6: (1628-1652 nm); SWIR I<br/>
 1000m state_1km: Reflectance data state QA flags, SDS(Scientific Data Set), cloud state</sub>
 
 ### Results:
