@@ -86,7 +86,7 @@ Export.table.toDrive({
   fileFormat: 'CSV',
   selectors: ['rows1']
 });
-```
+
 `more about MIN MAX distribution`
 
 ![No  of days with _LOW cloudiness_ higher than 18%  N= 838](https://github.com/RhoSpatial/Cloudiness-of-Sahara-with-MODIS-and-VIIRS/assets/111765142/3c8eab7d-882d-4af5-a079-344a56b72221)
@@ -98,7 +98,6 @@ Total cloud free where three days: 20.dec 2006, 7.feb 2010 and 11.mar 2018
 ![ZeroCloud_screen_MIN_WorldView](https://github.com/RhoSpatial/Cloudiness-of-Sahara-with-MODIS-and-VIIRS/assets/111765142/a7232d35-fd45-4024-b00b-c51fe75b9dd6)
 
 
-```
 `filtering based on counting valid pixels in study area`
 
 For images from MODIS onboard TERRA where analysed from 1.march 2000 to 27.feb 2023, that is total 8400 days(68 days had no data on study area; additional 138 days where removed later
