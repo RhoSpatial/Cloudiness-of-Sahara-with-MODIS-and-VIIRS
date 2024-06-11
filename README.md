@@ -6,7 +6,7 @@
 
 ### Clouds area retrieving method:
 Imagery analytics where performed on Google Earth Engine(GEE) platform using java script and MODIS Surface Reflectance product: MOD09GA version 6.1; NDCI(normalized cloud index)= (sur_refl_b01 - sur_refl_b06)/(sur_refl_b01 + sur_refl_b06).<br/>
-Imagery processing:<br/> SDS(C_flag)State_1km Bitmask QA; cloud state bit was used as a mask for cloud mapping;<br/> LOW PASS includes pixels with NDCI greather than -0.14<br/> MID PASS processes NDCI greather than 0<br/> HIGH PASS processes red band(b01) surface reflectance greather than 0.6.
+Imagery processing:<br/> 1 SDS(C_flag)State_1km Bitmask QA; cloud state bit was used as a mask for cloud mapping;<br/> 2 LOW PASS includes pixels with NDCI greather than -0.14<br/> 3 MID PASS processes NDCI greather than 0<br/> 4 HIGH PASS processes red band(b01) surface reflectance greather than 0.6.
 
 ![Sahara_screenshotsGEE](https://github.com/RhoSpatial/Cloudiness-of-Sahara-with-MODIS-and-VIIRS/assets/111765142/3f663f55-6e9c-431a-ab44-6186f1465d53)
 <sub>*fast grafic presentation: screenshoots from GEE (~)center is at three borders(Algeria,Mali,Niger); RGB(MODISTerra SR 10.jan.2015);</sub><br/>
@@ -29,7 +29,7 @@ WHITE = QA(SDS cloud flag)<br/> BLUE = low_pass<br/> YELLOW = mid_pass<br/> RED 
 
 ```js
 var MODIS_SR_coll = ee.ImageCollection('MODIS/061/MOD09GA') //MODIS/061/MYD09GA
-       .filterDate('2002-07-04', '2003-07-04')
+       .filterDate('2000-03-01', '2000-04-01')
        .select(['state_1km','sur_refl_b01','sur_refl_b06'])
        .map(function(i){return i.clip(Sahara_study)});
        
@@ -87,24 +87,48 @@ Export.table.toDrive({
   selectors: ['rows1']
 });
 ```
-`px_count situacion`
+`more about MIN MAX distribution`
+
+![No  of days with _LOW cloudiness_ higher than 18%  N= 838](https://github.com/RhoSpatial/Cloudiness-of-Sahara-with-MODIS-and-VIIRS/assets/111765142/3c8eab7d-882d-4af5-a079-344a56b72221)
+
+![No  of days with _LOW cloudiness_ _](https://github.com/RhoSpatial/Cloudiness-of-Sahara-with-MODIS-and-VIIRS/assets/111765142/a7dc8b26-bdca-4d94-9c07-454daa9f4f52)
+
+Total cloud free where three days: 20.dec 2006, 7.feb 2010 and 11.mar 2018
+
+![ZeroCloud_screen_MIN_WorldView](https://github.com/RhoSpatial/Cloudiness-of-Sahara-with-MODIS-and-VIIRS/assets/111765142/a7232d35-fd45-4024-b00b-c51fe75b9dd6)
+
+
+```
+`filtering based on counting valid pixels in study area`
+
+For images from MODIS onboard TERRA where analysed from 1.march 2000 to 27.feb 2023, that is total 8400 days(68 days had no data on study area; additional 138 days where removed later
+in Google Sheets, days with `count_GA` lower than 18.545.000 px where filtered out.
+
+![Px_count_chart](https://github.com/RhoSpatial/Cloudiness-of-Sahara-with-MODIS-and-VIIRS/assets/111765142/f58326a3-c327-49ed-811f-1206f5cf1cea)
+
+![Sahar_screenFAIL17_21_WorldV](https://github.com/RhoSpatial/Cloudiness-of-Sahara-with-MODIS-and-VIIRS/assets/111765142/98ce3966-3af5-464f-911c-b1388a9dbe51)
+
+
+
+
+
 #### MODIS Terra maps:
 Number of cloudy days in one year in each pixel (20 years averages 2000-2020). This maps where exported from GEE and processed in SAGA-GIS; they don't exclude days with significant sensor 
 failure(like px_count in study area), therefore the true values [days/year] are slightly higher. This maps were made before the study area was drawn.<br/>
 
-High pass QA-C_flag & red_band refl gt(0.6)
+High pass <sub>QA-C_flag & red_band refl gt(0.6)</sub>
 ![Sahara_red_high_pass](https://github.com/RhoSpatial/Cloudiness-of-Sahara-with-MODIS-and-VIIRS/assets/111765142/55510733-3b0d-41d7-888c-26abe4b94e42)
 
-MID pass QA-C_flag & NDCI gt(0)
+MID pass <sub>QA-C_flag & NDCI gt(0)</sub>
 ![Sahara_mid_pass](https://github.com/RhoSpatial/Cloudiness-of-Sahara-with-MODIS-and-VIIRS/assets/111765142/ceaa9eac-4a7e-4d24-a396-d5823b8429d4)
 
-Avg no. of days on areas... HIGH pass | MID pass
+<sub>Avg no. of days on areas...</sub> HIGH pass | MID pass
 ![Sahara_high_mid_area](https://github.com/RhoSpatial/Cloudiness-of-Sahara-with-MODIS-and-VIIRS/assets/111765142/b3887bcf-1c2f-4014-9d8e-259d314c652d)
 
-LOW pass QA_Cloud_flag & NDCI gt(-0.14)
+LOW pass <sub>QA_C_flag & NDCI gt(-0.14)</sub>
 ![Sahara_low_pass](https://github.com/RhoSpatial/Cloudiness-of-Sahara-with-MODIS-and-VIIRS/assets/111765142/b5e52e6a-9ebd-4675-acab-fba819ae810d)
 
-QA-C_flag; state_1km Bitmask (bit 0 = 1)
+QA-C_flag <sub>state_1km Bitmask (bit 0 = 1)</sub>
 ![Sahara_SDS_pass](https://github.com/RhoSpatial/Cloudiness-of-Sahara-with-MODIS-and-VIIRS/assets/111765142/e46d9751-e8c9-40c7-8c4a-b7957d5dd019)
 
 Avg no. of days on areas... LOW pass | QA(SDS C_flag)
