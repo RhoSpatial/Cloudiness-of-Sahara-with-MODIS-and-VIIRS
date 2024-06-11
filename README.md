@@ -86,6 +86,7 @@ Export.table.toDrive({
   fileFormat: 'CSV',
   selectors: ['rows1']
 });
+```
 
 `more about MIN MAX distribution`
 
