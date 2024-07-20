@@ -25,8 +25,8 @@ WHITE = QA(SDS cloud flag)<br/> BLUE = low_pass<br/> YELLOW = mid_pass<br/> RED 
 
 ![Yearly averages 2001-22 MODIS TERRA  (Sahara)](https://github.com/RhoSpatial/Cloudiness-of-Sahara-with-MODIS-and-VIIRS/assets/111765142/8adb2b3a-faf2-4828-91ab-33b608409c41)
 
-### Java script
-
+### Main Java script for retrieving data
+Script is optimized to process and deliver results from large data input with preserving resolution.There is no UI, but table export.
 ```js
 var MODIS_SR_coll = ee.ImageCollection('MODIS/061/MOD09GA') //MODIS/061/MYD09GA
        .filterDate('2000-03-01', '2000-04-01')
@@ -88,21 +88,23 @@ Export.table.toDrive({
 });
 ```
 
-`more about MIN MAX distribution`
+`high cloudiness distribution`
+![No  of days with LOW_pass cloudiness higher than 18%  N= 838](https://github.com/user-attachments/assets/41d91435-3217-4858-a88e-43024bb389c7)
 
-![No  of days with _LOW cloudiness_ higher than 18%  N= 838](https://github.com/RhoSpatial/Cloudiness-of-Sahara-with-MODIS-and-VIIRS/assets/111765142/3c8eab7d-882d-4af5-a079-344a56b72221)
 
-![No  of days with _LOW cloudiness_ _](https://github.com/RhoSpatial/Cloudiness-of-Sahara-with-MODIS-and-VIIRS/assets/111765142/a7dc8b26-bdca-4d94-9c07-454daa9f4f52)
+`more about MIN distribution`
+![LOW_pass  cloudiness](https://github.com/user-attachments/assets/d9c40fc5-a683-4113-92dd-dc90d370b7c9)
 
-Total cloud free where three days: 20.dec 2006, 7.feb 2010 and 11.mar 2018
+
+Study area had zero cloud cover on three days: 20.dec 2006, 7.feb 2010 and 11.mar 2018
 
 ![ZeroCloud_screen_MIN_WorldView](https://github.com/RhoSpatial/Cloudiness-of-Sahara-with-MODIS-and-VIIRS/assets/111765142/a7232d35-fd45-4024-b00b-c51fe75b9dd6)
 
 
 `filtering based on counting valid pixels in study area`
 
-For images from MODIS onboard TERRA where analysed from 1.march 2000 to 27.feb 2023, that is total 8400 days(68 days had no data on study area; additional 138 days where removed later
-in Google Sheets, days with `count_GA` lower than 18.545.000 px where filtered out.
+Time interval 1.march 2000-27.feb 2023, that is total 8400 days(68 days had no data on study area; additional 138 days where removed later
+in Google Sheets, where days with `count_GA` higher than 18.545.000 px are considered valid.
 
 ![Px_count_chart](https://github.com/RhoSpatial/Cloudiness-of-Sahara-with-MODIS-and-VIIRS/assets/111765142/f58326a3-c327-49ed-811f-1206f5cf1cea)
 
@@ -135,7 +137,98 @@ Avg no. of days on areas... LOW pass | QA(SDS C_flag)
 ![Sahara_low_SDS_area](https://github.com/RhoSpatial/Cloudiness-of-Sahara-with-MODIS-and-VIIRS/assets/111765142/e81499cd-937f-4bb1-856d-dcbc3e07eab4)
 <sub>*Areas where obtained by reclasifiying, resampling and segmentation of map derivated from QA_SDS(Cloud flag) in SAGA-GIS.*</sub>
 
-#### Terra vs Agua
+### Visualization Java script
+
+```js
+var MODIS_SR_coll = ee.ImageCollection('MODIS/061/MOD09GA')
+       .filterDate('2000-03-01', '2000-03-16')
+       .select(['state_1km','sur_refl_b01','sur_refl_b06'])
+       .map(function(i){return i.clip(Sahara_study)});
+
+var low_pass_th = -0.14;
+var mid_pass_th = 0;
+var red_high_pass = 6000;
+
+function Clouds_MOD09GA(i) {
+    var C_flag = i.select('state_1km').bitwiseAnd(1 << 0).eq(1).rename('Cflag_state_1km');
+    var NDCI = i.normalizedDifference(['sur_refl_b01', 'sur_refl_b06']).rename('NDCI_redswir1');
+    var low_pass_NDCI = NDCI.gt(low_pass_th).and(C_flag.eq(1)).rename('NDCI_low_pass');
+    var mid_pass_NDCI = NDCI.gt(mid_pass_th).and(C_flag.eq(1)).rename('NDCI_mid_pass');
+    var high_pass_RED = mid_pass_NDCI.eq(1).and(i.select('sur_refl_b01').gt(red_high_pass)).rename('RED_high_pass');
+  
+  return ee.Image([C_flag, low_pass_NDCI, mid_pass_NDCI, high_pass_RED]).copyProperties(i,['system:time_start']);
+}
+
+var OUTPUT_images = MODIS_SR_coll.map(Clouds_MOD09GA);
+
+var OUTPUT_List = ee.Image(OUTPUT_images.toList(OUTPUT_images.size()));
+print('OUTPUT_List', OUTPUT_List);
+
+var listed_Day = 2;
+
+var OUTPUT_Day = ee.Image(OUTPUT_images.toList(OUTPUT_images.size()).get(listed_Day));
+
+print('listed Day :'+listed_Day, ee.Date((OUTPUT_Day.get('system:time_start'))));
+print('Study_area_m2', Sahara_study.area());
+
+var Cmask_chart = ui.Chart.image.seriesByRegion(OUTPUT_images, Sahara_study, 
+      ee.Reducer.mean(), 'Cflag_state_1km', 1000, 'system:time_start','label')
+        .setOptions({
+          title: 'Cloudines MODIS_sr Cmask',
+          vAxis: {title: 'band: state_1km Bitmask'},
+          pointSize: 2,
+          colors: ['E37D05']
+        });
+print(Cmask_chart);
+
+var NDCI_low_chart = ui.Chart.image.seriesByRegion(OUTPUT_images, Sahara_study, 
+      ee.Reducer.mean(),'NDCI_low_pass', 500, 'system:time_start','label')
+        .setOptions({
+          title: 'Cloudines MODIS_sr NDCI_low_pass',
+          vAxis: {title: 'Cmask and NDCI_gt'+low_pass_th},
+          pointSize: 2,
+          colors: ['#163bff']});
+print(NDCI_low_chart);
+
+var NDCI_mid_chart = ui.Chart.image.seriesByRegion(OUTPUT_images, Sahara_study, 
+      ee.Reducer.mean(),'NDCI_mid_pass', 500, 'system:time_start','label')
+        .setOptions({
+          title: 'Cloudines MODIS_sr NDCI_mid_pass',
+          vAxis: {title: 'Cmask and NDCI_gt'+mid_pass_th},
+          pointSize: 2,
+          colors: ['#fff23b']});
+print(NDCI_mid_chart);
+
+var RED_high_chart = ui.Chart.image.seriesByRegion(OUTPUT_images, Sahara_study, 
+      ee.Reducer.mean(), 'RED_high_pass', 500, 'system:time_start','label')
+        .setOptions({
+          title: 'Cloudines MODIS_sr RED high pass',
+          vAxis: {title: 'Cmask and RED_sr_gt ('+red_high_pass},
+          pointSize: 2,
+          colors: ['#ff5371']});
+print(RED_high_chart);
+
+var px_count_chart = ui.Chart.image.seriesByRegion(OUTPUT_images, Sahara_study, 
+      ee.Reducer.count(), 'RED_high_pass', 500, 'system:time_start','label')
+        .setOptions({
+          title: 'No. of valid pixels(500m res) in study area',
+          vAxis: {title: 'valid pixel px_count'},
+          lineWidth: 1,
+          pointSize: 2,
+          colors: ['#ff5371']
+        });
+print(px_count_chart);
+
+var MODIS_SR_day = ee.ImageCollection('MODIS/061/MOD09GA')
+                                    .filterDate(ee.Date(OUTPUT_Day.get('system:time_start')));
+                                    
+Map.addLayer(MODIS_SR_day,{'bands':['sur_refl_b01','sur_refl_b04','sur_refl_b03'],'min':100,'max':8000},'rgb');
+Map.addLayer(OUTPUT_Day.select('Cflag_state_1km').selfMask(),{palette:'#ffffff'},'C_flag_cloud_state' ,false);
+Map.addLayer(OUTPUT_Day.select('NDCI_low_pass').selfMask(),{palette:'#163bff'},'NDCI_low_pass');
+Map.addLayer(OUTPUT_Day.select('NDCI_mid_pass').selfMask(),{palette:'#fff23b'},'NDCI_mid_pass',false);
+Map.addLayer(OUTPUT_Day.select('RED_high_pass').selfMask(),{palette:'#ff5371'},'RED_high_pass');
+```
+#### dd
 ![Cloudiness by DOY  2002-23 average (N=7467; 97,35% of total) days MODIS_Aqua](https://github.com/RhoSpatial/Cloudiness-of-Sahara-with-MODIS-and-VIIRS/assets/111765142/e129d8a1-9ab8-4011-97c7-18b35e8e22a5)
 
 ![MODIS Aqua   2003-2022   MID-pass (min, quartiles, max) ](https://github.com/RhoSpatial/Cloudiness-of-Sahara-with-MODIS-and-VIIRS/assets/111765142/a472f5da-cc09-44c2-b055-de093087ce5a)
