@@ -2,6 +2,7 @@
 
 ### Study area
 ~ 5 000 000 km2 (little less)
+
 ![Stuady_are1](https://github.com/RhoSpatial/Cloudiness-of-Sahara-with-MODIS-and-VIIRS/assets/111765142/083c5186-a60a-4deb-b9fd-b9e28cefdeba)
 
 ### Clouds area retrieving method:
@@ -88,6 +89,8 @@ Export.table.toDrive({
 });
 ```
 
+
+
 `MAX cloudiness distribution`
 ![No  of days with LOW_pass cloudiness higher than 18%  N= 838](https://github.com/user-attachments/assets/41d91435-3217-4858-a88e-43024bb389c7)
 
@@ -96,7 +99,7 @@ Export.table.toDrive({
 ![LOW_pass  cloudiness](https://github.com/user-attachments/assets/d9c40fc5-a683-4113-92dd-dc90d370b7c9)
 
 
-<sub>Study area had zero cloud cover on three days: 20.dec 2006, 7.feb 2010 and 11.mar 2018<\sub>
+<sub>Study area had zero cloud cover on three days: 20.dec 2006, 7.feb 2010 and 11.mar 2018 <\sub>
 
 ![ZeroCloud_screen_MIN_WorldView](https://github.com/RhoSpatial/Cloudiness-of-Sahara-with-MODIS-and-VIIRS/assets/111765142/a7232d35-fd45-4024-b00b-c51fe75b9dd6)
 
