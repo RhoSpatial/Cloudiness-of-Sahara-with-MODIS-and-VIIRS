@@ -6,7 +6,10 @@
 ![Stuady_are1](https://github.com/RhoSpatial/Cloudiness-of-Sahara-with-MODIS-and-VIIRS/assets/111765142/083c5186-a60a-4deb-b9fd-b9e28cefdeba)
 
 ### Clouds area retrieving method:
-Imagery analytics where performed on Google Earth Engine(GEE) platform using java script and MODIS Surface Reflectance product: MOD09GA version 6.1; NDCI(normalized cloud index)= (sur_refl_b01 - sur_refl_b06)/(sur_refl_b01 + sur_refl_b06).<br/>
+Imagery analytics where performed on Google Earth Engine(GEE) platform using java script and MODIS Surface Reflectance product: MOD09GA version 6.1;<br/>
+
+NDCI(normalized cloud index)= (sur_refl_b01 - sur_refl_b06)/(sur_refl_b01 + sur_refl_b06).<br/>
+
 Imagery processing:<br/> 1 SDS(C_flag)State_1km Bitmask QA; cloud state bit was used as a mask for cloud mapping;<br/> 2 LOW PASS includes pixels with NDCI greather than -0.14<br/> 3 MID PASS processes NDCI greather than 0<br/> 4 HIGH PASS processes red band(b01) surface reflectance greather than 0.6.
 
 ![Sahara_screenshotsGEE](https://github.com/RhoSpatial/Cloudiness-of-Sahara-with-MODIS-and-VIIRS/assets/111765142/3f663f55-6e9c-431a-ab44-6186f1465d53)
