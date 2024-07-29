@@ -1,4 +1,4 @@
-# Sahara-Cloudiness-with-MODIS-using-GEE
+# Sahara-Cloudiness-with-MODIS-and-GEE_js
 
 ### Study area
 ~ 5 000 000 km2 (little less)
@@ -24,7 +24,8 @@ WHITE = QA(SDS cloud flag)<br/> BLUE = low_pass<br/> YELLOW = mid_pass<br/> RED 
 1000m state_1km: Reflectance data state QA flags, SDS(Scientific Data Set), cloud state</sub>
 
 ### Results:
-Average cloudiness of study area is ~ 8 %.<br/>
+Average cloudiness of study area is ~ 8 %. The cloudiest year was 2016, 9.8% and year 2001 was the least cloudy year with average cloudiness 5.6%. <br/>
+
 ![Cloudiness by DOY  2000-23 average (N=8194; 97,5% of total) days MODIS_Terra](https://github.com/RhoSpatial/Cloudiness-of-Sahara-with-MODIS-and-VIIRS/assets/111765142/df769e65-0573-4120-aa57-9277b1354de5)
 
 ![_MODIS Terra   2001-2022    MID-pass  (min, quartiles, max) ](https://github.com/RhoSpatial/Cloudiness-of-Sahara-with-MODIS-and-VIIRS/assets/111765142/455d6205-1efd-4e65-b7d2-72067951d95d)
@@ -34,6 +35,14 @@ Average cloudiness of study area is ~ 8 %.<br/>
 ### Main Java script for retrieving data
 Script is optimized to process and export results from large data input where output preserves input bands resolution.There is no GUI, just table export.
 ```js
+/*
+ * @license
+ * Author: Miha Žemva
+ *correspondence: mih.zemva@gmail.com
+ * Licensed under the Apache License, Version 2.0 
+ * 
+ *     https://www.apache.org/licenses/LICENSE-2.0
+*/
 var MODIS_SR_coll = ee.ImageCollection('MODIS/061/MOD09GA') //MODIS/061/MYD09GA
        .filterDate('2000-03-01', '2000-04-01')
        .select(['state_1km','sur_refl_b01','sur_refl_b06'])
@@ -97,14 +106,16 @@ Export.table.toDrive({
 
 
 `MAX cloudiness distribution`
+
 ![No  of days with LOW_pass cloudiness higher than 18%  N= 838](https://github.com/user-attachments/assets/41d91435-3217-4858-a88e-43024bb389c7)
 
 
 `MIN cloudiness distribution`
+
 ![LOW_pass  cloudiness](https://github.com/user-attachments/assets/d9c40fc5-a683-4113-92dd-dc90d370b7c9)
 
 
-<sub>Study area had zero cloud cover on three days: 20.dec 2006, 7.feb 2010 and 11.mar 2018. <\sub>
+<sub>Study area had zero cloud cover on three days: 20.dec 2006, 7.feb 2010 and 11.mar 2018.<\sub>
 
 ![ZeroCloud_screen_MIN_WorldView](https://github.com/RhoSpatial/Cloudiness-of-Sahara-with-MODIS-and-VIIRS/assets/111765142/a7232d35-fd45-4024-b00b-c51fe75b9dd6)
 
@@ -119,6 +130,7 @@ in Google Sheets, where days with `count_GA` higher than 18.545.000 px are consi
 ![Sahar_screenFAIL17_21_WorldV](https://github.com/RhoSpatial/Cloudiness-of-Sahara-with-MODIS-and-VIIRS/assets/111765142/98ce3966-3af5-464f-911c-b1388a9dbe51)
 
 `No. of daily imagery used in analytics`
+
 ![Valid Imagery per Year](https://github.com/user-attachments/assets/3dc2c6b1-e240-4472-abc9-580ed6de301f)
 
 
@@ -151,6 +163,15 @@ LOW pass | QA(C_flag) <sub>Avg no. of days on areas...</sub>
 ### Visualization Java script
 
 ```js
+/*
+ * @license
+ * Author: Miha Žemva
+ *correspondence: mih.zemva@gmail.com
+ * Licensed under the Apache License, Version 2.0 
+ * 
+ *     https://www.apache.org/licenses/LICENSE-2.0
+*/
+
 var MODIS_SR_coll = ee.ImageCollection('MODIS/061/MOD09GA')
        .filterDate('2000-03-01', '2000-03-16')
        .select(['state_1km','sur_refl_b01','sur_refl_b06'])
@@ -241,5 +262,6 @@ Map.addLayer(OUTPUT_Day.select('RED_high_pass').selfMask(),{palette:'#ff5371'},'
 
 ### Discussion
 
-![No  of _valid days_ MODIS Terra Sahara](https://github.com/user-attachments/assets/b8af848b-367a-4283-8e8f-b820de280f87)
+![No  of _valid days_ MODIS Terra (Sahara)](https://github.com/user-attachments/assets/d37d4321-feb7-4a13-9854-895edc262fc2)
+
 
