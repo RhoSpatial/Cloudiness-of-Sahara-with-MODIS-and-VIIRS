@@ -1,5 +1,5 @@
 # Sahara-Cloudiness-with-MODIS-and-GEE_js
-
+summer 2024
 ### Study area
 ~ 5 000 000 km2 (little less)
 
