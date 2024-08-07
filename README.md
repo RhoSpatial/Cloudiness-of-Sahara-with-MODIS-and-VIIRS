@@ -38,7 +38,7 @@ Script is optimized to process and export results from large data input where ou
 /*
  * @license
  * Author: Miha Žemva
- *correspondence: mih.zemva@gmail.com
+ * correspondence: mih.zemva@gmail.com
  * Licensed under the Apache License, Version 2.0 
  * 
  *     https://www.apache.org/licenses/LICENSE-2.0
@@ -115,7 +115,7 @@ Export.table.toDrive({
 ![LOW_pass  cloudiness](https://github.com/user-attachments/assets/d9c40fc5-a683-4113-92dd-dc90d370b7c9)
 
 
-<sub>Study area had zero cloud cover on three days: 20.dec 2006, 7.feb 2010 and 11.mar 2018.<\sub>
+<sub>Study area had zero cloud cover on three days: 20.dec 2006, 7.feb 2010 and 11.mar 2018.
 
 ![ZeroCloud_screen_MIN_WorldView](https://github.com/RhoSpatial/Cloudiness-of-Sahara-with-MODIS-and-VIIRS/assets/111765142/a7232d35-fd45-4024-b00b-c51fe75b9dd6)
 
@@ -166,7 +166,7 @@ LOW pass | QA(C_flag) <sub>Avg no. of days on areas...</sub>
 /*
  * @license
  * Author: Miha Žemva
- *correspondence: mih.zemva@gmail.com
+ * correspondence: mih.zemva@gmail.com
  * Licensed under the Apache License, Version 2.0 
  * 
  *     https://www.apache.org/licenses/LICENSE-2.0
@@ -264,4 +264,11 @@ Map.addLayer(OUTPUT_Day.select('RED_high_pass').selfMask(),{palette:'#ff5371'},'
 
 ![No  of _valid days_ MODIS Terra (Sahara)](https://github.com/user-attachments/assets/d37d4321-feb7-4a13-9854-895edc262fc2)
 
+Year 2001 is standing out with the lowest cloudiness; also the least imagery was used for analytics, surprisingly mayority of missing "dates" is in june when cloudinest is second lowest.
+The begining of year 2001 outstands the most. 
 
+![Low_pass cloudiness (AVG vs  2001) MODIS TERRA Sahara](https://github.com/user-attachments/assets/8fc33e6a-4fcd-493e-9b57-b25e90be5f70)
+
+In this work `cloud state`(C-flag) from `1000m state_1km` band was not used in analytics. Observations shows that higher values of `cloud state` cloudiness compared to Low_pass cloudiness
+indicate high fogginess. So exporting analytics of this band will be included in further work with latest years added. MODIS is probably the most important instrument for earth observation,
+due to relatively high spatial resolution and legacy of years.
