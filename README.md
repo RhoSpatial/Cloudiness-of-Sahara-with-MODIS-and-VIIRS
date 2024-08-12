@@ -269,6 +269,7 @@ The begining of year 2001 outstands the most.
 
 ![Low_pass cloudiness (AVG vs  2001) MODIS TERRA Sahara](https://github.com/user-attachments/assets/8fc33e6a-4fcd-493e-9b57-b25e90be5f70)
 
-In this work `cloud state`(C-flag) from `1000m state_1km` band was not used in analytics. Observations shows that higher values of `cloud state` cloudiness compared to Low_pass cloudiness
-indicate high fogginess. So exporting analytics of this band will be included in further work with latest years added. MODIS is probably the most important instrument for earth observation,
+In this work `cloud state`(C-flag) from `1000m state_1km` band was not used in analytics. Observations shows that when clodiness of study area is not high;then higher values of `cloud state` cloudiness compared to Low_pass cloudiness indicate high fogginess. So exporting analytics of this band will be included in further work with latest years added. MODIS is probably the most important instrument for earth observation,
 due to relatively high spatial resolution and legacy of years.
+
+<script type="text/javascript" src="//rf.revolvermaps.com/0/0/2.js?i=5s0xa7qkaqk&amp;m=0&amp;s=130&amp;c=ff0000&amp;t=1" async="async"></script>
