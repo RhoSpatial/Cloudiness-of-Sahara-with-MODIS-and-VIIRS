@@ -264,11 +264,11 @@ Map.addLayer(OUTPUT_Day.select('RED_high_pass').selfMask(),{palette:'#ff5371'},'
 
 ![No  of _valid days_ MODIS Terra (Sahara)](https://github.com/user-attachments/assets/d37d4321-feb7-4a13-9854-895edc262fc2)
 
-Year 2001 is standing out with the lowest cloudiness; also the least imagery was used for analytics, surprisingly mayority of missing "dates" is in june when cloudinest is second lowest.
-The begining of year 2001 outstands the most. 
+Year 2001 is standing out with the lowest cloudiness; also the least imagery was used for analytics, surprisingly mayority of missing "dates" is in june when cloudinest is second lowest; meaning
+that missing dates would lower average cloudiness of year 2001. 
 
 ![Low_pass cloudiness (AVG vs  2001) MODIS TERRA Sahara](https://github.com/user-attachments/assets/8fc33e6a-4fcd-493e-9b57-b25e90be5f70)
 
-In this work `cloud state`(C-flag) from `1000m state_1km` band was not used in analytics. Observations shows that when clodiness of study area is not high;then higher values of `cloud state` cloudiness compared to Low_pass cloudiness indicate high fogginess. So exporting analytics of this band will be included in further work with latest years added. MODIS is probably the most important instrument for earth observation,
+In this work `cloud state`(C-flag) from `1000m state_1km` band was not used in analytics. Observations show that when cloudiness of study area is not high;then higher values of `cloud state` cloudiness compared to Low_pass cloudiness indicate high fogginess. So exporting analytics of this band will be included in further work with latest years added. MODIS is probably the most important instrument for earth observation,
 due to relatively high spatial resolution and legacy of years.
 
