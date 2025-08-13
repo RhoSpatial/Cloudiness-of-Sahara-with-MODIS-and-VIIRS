@@ -111,7 +111,7 @@ Export.table.toDrive({
 
 
 `MIN cloudiness distribution`
-
+Showing no. of days wherw low_pass cloudiness of study area is 0-1% and 1-2%.  
 ![LOW_pass  cloudiness](https://github.com/user-attachments/assets/d9c40fc5-a683-4113-92dd-dc90d370b7c9)
 
 
@@ -123,7 +123,7 @@ Export.table.toDrive({
 `filtering based on counting valid pixels in study area`
 
 Analysed imagery has time interval 1.march 2000-27.feb 2023, that is total 8400 days(68 days had no data on study area; additional 138 days where removed later
-in Google Sheets, where days with `count_GA` higher than 18.545.000 px are considered valid.
+in Google Sheets, based on `count_GA` where days with more than 18.545.000 valid pixels on study area are considered valid.
 
 ![Px_count_chart](https://github.com/RhoSpatial/Cloudiness-of-Sahara-with-MODIS-and-VIIRS/assets/111765142/f58326a3-c327-49ed-811f-1206f5cf1cea)
 
@@ -135,9 +135,9 @@ in Google Sheets, where days with `count_GA` higher than 18.545.000 px are consi
 
 
 
-#### MODIS Terra maps:
+#### MODIS Terra cludiness maps:
 Number of cloudy days in one year in each pixel (20 years averages 2000-2020). This maps where exported from GEE and processed in SAGA-GIS; they don't exclude days with significant sensor 
-failure(like px_count in study area), therefore the true values [days/year] are slightly higher(export from GEE was sum). This maps were made before the study area was drawn.<br/>
+failure(`count_GA`), therefore the true values [days/year] are slightly higher(export from GEE was sum). This maps were made before the study area was drawn.<br/>
 
 High pass <sub>QA-C_flag & red_band refl gt(0.6)</sub>
 ![Sahara_red_high_pass](https://github.com/RhoSpatial/Cloudiness-of-Sahara-with-MODIS-and-VIIRS/assets/111765142/55510733-3b0d-41d7-888c-26abe4b94e42)
@@ -265,10 +265,9 @@ Map.addLayer(OUTPUT_Day.select('RED_high_pass').selfMask(),{palette:'#ff5371'},'
 ![No  of _valid days_ MODIS Terra (Sahara)](https://github.com/user-attachments/assets/d37d4321-feb7-4a13-9854-895edc262fc2)
 
 Year 2001 is standing out with the lowest cloudiness; also the least imagery was used for analytics, surprisingly mayority of missing "dates" is in june when cloudinest is second lowest; meaning
-that missing dates would lower average cloudiness of year 2001. 
+that with missing dates average cloudiness of year 2001 would be even lower. 
 
 ![Low_pass cloudiness (AVG vs  2001) MODIS TERRA Sahara](https://github.com/user-attachments/assets/8fc33e6a-4fcd-493e-9b57-b25e90be5f70)
 
-In this work data only from `cloud state`(C-flag) from `1000m state_1km` band where not used in analytics; it was used as first rule of area restriction to retrive cloud area. Observations show that days with low cloudiness and and relative high area from `cloud state` are foggy . So fogginess can also be analysed.For me MODIS is the most important instrument for earth observation,
-due to daily almost global cover, relatively high spatial resolution and legacy of years.
+In this work data only from `cloud state`(C-flag) from `1000m state_1km` band where not used in analytics; it was used as first rule of area restriction to retrive cloud area. Observations show that days with low cloudiness and and relative high area derived from `cloud state` have significant fogginess, which can also be analysed. To monitor large areas and have many years of analytic compatible, MODIS is the most important instrument for earth observation, due to daily almost global cover, relatively high spatial resolution and legacy of years.
 
